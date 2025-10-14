@@ -1,0 +1,2 @@
+# Additional requirements for IC Chip Detection with OCR
+pytesseract>=0.3.10

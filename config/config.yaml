@@ -1,0 +1,184 @@
+# Configuration for IC Detection System
+detection:
+  # Detection parameters
+  confidence_threshold: 0.5  # Minimum confidence score
+  iou_threshold: 0.45  # IoU threshold for NMS
+  max_detections: 10  # Maximum detections per image
+  
+  # Model settings
+  model_path: "models/best.pt"  # Path to trained model
+  device: "cuda"  # cuda, cpu, or mps (for Apple Silicon)
+  half_precision: false  # Use FP16 for faster inference
+  
+  # Input settings
+  input_size: 640  # Model input size
+  auto_resize: true  # Automatically resize images
+
+preprocessing:
+  # Image preprocessing
+  resize: true
+  target_size: [640, 640]
+  maintain_aspect_ratio: true
+  
+  # Enhancement
+  normalize: true
+  denoise: false
+  sharpen: false
+  contrast_enhance: false
+  
+  # Advanced preprocessing
+  clahe: false  # Contrast Limited Adaptive Histogram Equalization
+  gamma_correction: false
+  gamma_value: 1.0
+
+postprocessing:
+  # Detection refinement
+  edge_detection: true
+  edge_method: "canny"  # canny, sobel, laplacian
+  refine_bbox: true
+  extract_corners: true
+  
+  # Quality checks
+  check_blur: true
+  blur_threshold: 100  # Lower = more blur
+  check_brightness: true
+  brightness_range: [30, 220]  # Min/Max acceptable brightness
+  
+  # Perspective correction
+  auto_perspective: false
+  deskew: false
+
+output:
+  # Save settings
+  save_images: true
+  save_crops: true  # Save cropped detections
+  save_annotated: true  # Save images with bounding boxes
+  save_reports: true
+  
+  # Output paths
+  output_dir: "results"
+  images_dir: "results/images"
+  crops_dir: "results/crops"
+  reports_dir: "results/reports"
+  
+  # Output format
+  image_format: "jpg"  # jpg, png
+  report_format: "json"  # json, csv, txt
+  
+  # Annotation settings
+  box_thickness: 2
+  box_color: [0, 255, 0]  # BGR format
+  text_size: 0.6
+  text_color: [255, 255, 255]
+  show_confidence: true
+  show_class_name: true
+
+video:
+  # Video processing settings
+  frame_skip: 0  # Process every Nth frame (0 = all frames)
+  output_fps: 30
+  output_codec: "mp4v"  # mp4v, h264, xvid
+  show_fps: true
+  
+  # Buffer settings
+  buffer_size: 10  # Frames to buffer for smoothing
+
+webcam:
+  # Webcam settings
+  camera_id: 0  # Default camera
+  resolution: [1280, 720]  # Width, Height
+  fps: 30
+  
+  # Display settings
+  window_name: "IC Detection"
+  show_fps: true
+  fullscreen: false
+  
+  # Performance
+  skip_frames: 0  # Skip frames for better performance
+
+quality_metrics:
+  # Enable quality checks
+  enabled: true
+  
+  # Metrics to calculate
+  blur_detection: true
+  brightness_check: true
+  contrast_check: true
+  sharpness_check: true
+  noise_estimation: true
+  
+  # Thresholds
+  min_blur_score: 100
+  min_brightness: 30
+  max_brightness: 220
+  min_contrast: 20
+  min_sharpness: 50
+
+logging:
+  # Logging settings
+  enabled: true
+  level: "INFO"  # DEBUG, INFO, WARNING, ERROR
+  log_file: "logs/detection.log"
+  console_output: true
+  
+  # Log rotation
+  max_size: "10MB"
+  backup_count: 5
+
+performance:
+  # Performance optimization
+  use_multithreading: true
+  num_threads: 4
+  batch_processing: false
+  batch_size: 8
+  
+  # Memory management
+  clear_cache: true
+  max_memory: "4GB"
+
+api:
+  # API settings (if running as service)
+  enabled: false
+  host: "0.0.0.0"
+  port: 8000
+  workers: 4
+  timeout: 60
+  
+  # Security
+  api_key_required: false
+  allowed_origins: ["*"]
+  
+  # Rate limiting
+  rate_limit: 100  # requests per minute
+  max_file_size: "10MB"
+
+dataset:
+  # Dataset configuration for training
+  train_split: 0.7
+  val_split: 0.2
+  test_split: 0.1
+  
+  # Augmentation (if creating dataset)
+  augmentation: true
+  augmentation_factor: 5  # How many augmented images per original
+  
+  # Annotation format
+  annotation_format: "yolo"  # yolo, coco, pascal_voc
+
+advanced:
+  # Advanced settings
+  ensemble: false  # Use multiple models
+  ensemble_models: []
+  
+  # Tracking (for video)
+  enable_tracking: false
+  tracker_type: "sort"  # sort, deep_sort, byte_track
+  
+  # Multi-scale detection
+  multi_scale: false
+  scales: [0.5, 1.0, 1.5]
+  
+  # Region of Interest (ROI)
+  use_roi: false
+  roi_coordinates: [0, 0, 640, 640]  # x1, y1, x2, y2

@@ -1,0 +1,95 @@
+# YOLOv8 Training Configuration for IC Detection
+
+# Dataset paths
+path: ./data  # dataset root dir
+train: train/images  # train images relative to 'path'
+val: val/images  # val images relative to 'path'
+test: test/images  # test images (optional)
+
+# Classes - Customize based on your IC types
+names:
+  0: IC  # Generic Identity Card
+  1: Aadhaar  # Indian Aadhaar Card
+  2: PAN  # PAN Card
+  3: Passport  # Passport
+  4: DrivingLicense  # Driving License
+  5: VoterID  # Voter ID Card
+
+# Number of classes
+nc: 6
+
+# Model Configuration
+model: yolov8s.pt  # yolov8n.pt, yolov8s.pt, yolov8m.pt, yolov8l.pt, yolov8x.pt
+
+# Hyperparameters
+epochs: 100  # number of epochs to train for
+batch: 16  # batch size (-1 for AutoBatch)
+imgsz: 640  # input image size (pixels)
+patience: 50  # epochs to wait for no observable improvement for early stopping
+save: true  # save train checkpoints and predict results
+save_period: -1  # save checkpoint every x epochs (disabled if < 1)
+cache: false  # true/ram, disk or false. Use cache for data loading
+device: 0  # device to run on, i.e. cuda device=0 or device=0,1,2,3 or device=cpu
+workers: 8  # number of worker threads for data loading
+project: runs/detect  # project name
+name: ic_detection  # experiment name
+exist_ok: false  # whether to overwrite existing experiment
+pretrained: true  # whether to use a pretrained model
+optimizer: auto  # optimizer to use, choices=['SGD', 'Adam', 'AdamW', 'auto']
+verbose: true  # verbose output
+seed: 0  # random seed for reproducibility
+deterministic: true  # whether to enable deterministic mode
+single_cls: false  # train as single-class dataset
+rect: false  # rectangular training
+cos_lr: false  # use cosine learning rate scheduler
+close_mosaic: 10  # disable mosaic augmentation for final epochs
+resume: false  # resume training from last checkpoint
+amp: true  # Automatic Mixed Precision (AMP) training
+fraction: 1.0  # dataset fraction to train on
+profile: false  # profile ONNX and TensorRT speeds during training for loggers
+freeze: null  # freeze first n layers or layers with given names
+
+# Augmentation parameters
+hsv_h: 0.015  # image HSV-Hue augmentation (fraction)
+hsv_s: 0.7  # image HSV-Saturation augmentation (fraction)
+hsv_v: 0.4  # image HSV-Value augmentation (fraction)
+degrees: 0.0  # image rotation (+/- deg)
+translate: 0.1  # image translation (+/- fraction)
+scale: 0.5  # image scale (+/- gain)
+shear: 0.0  # image shear (+/- deg)
+perspective: 0.0  # image perspective (+/- fraction), range 0-0.001
+flipud: 0.0  # image flip up-down (probability)
+fliplr: 0.5  # image flip left-right (probability)
+mosaic: 1.0  # image mosaic (probability)
+mixup: 0.0  # image mixup (probability)
+copy_paste: 0.0  # segment copy-paste (probability)
+
+# Learning rate and momentum
+lr0: 0.01  # initial learning rate
+lrf: 0.01  # final learning rate (lr0 * lrf)
+momentum: 0.937  # SGD momentum/Adam beta1
+weight_decay: 0.0005  # optimizer weight decay
+warmup_epochs: 3.0  # warmup epochs
+warmup_momentum: 0.8  # warmup initial momentum
+warmup_bias_lr: 0.1  # warmup initial bias lr
+box: 7.5  # box loss gain
+cls: 0.5  # cls loss gain (scale with pixels)
+dfl: 1.5  # dfl loss gain
+pose: 12.0  # pose loss gain (pose-only)
+kobj: 2.0  # keypoint obj loss gain (pose-only)
+label_smoothing: 0.0  # label smoothing (fraction)
+nbs: 64  # nominal batch size
+overlap_mask: true  # masks should overlap during training (segment train only)
+mask_ratio: 4  # mask downsample ratio (segment train only)
+dropout: 0.0  # use dropout regularization (classify train only)
+
+# Validation/Test settings
+val: true  # validate/test during training
+plots: true  # save plots during train/val
+save_json: false  # save results to JSON file
+save_hybrid: false  # save hybrid version of labels (labels + additional predictions)
+conf: null  # confidence threshold for predictions (default 0.25 predict, 0.001 val)
+iou: 0.7  # intersection over union (IoU) threshold for NMS
+max_det: 300  # maximum number of detections per image
+half: false  # use FP16 half-precision inference
+dnn: false  # use OpenCV DNN for ONNX inference

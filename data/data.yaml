@@ -1,0 +1,13 @@
+﻿train: D:/SIH PS-162/ic-detection-yolo/data/train/images
+val: D:/SIH PS-162/ic-detection-yolo/data/valid/images
+test: D:/SIH PS-162/ic-detection-yolo/data/test/images
+
+nc: 3
+names: ['Defect-IC', 'IC-Legs', 'Perfect-IC']
+
+roboflow:
+  workspace: adityasih162
+  project: ic-detection-x1zxn-t08hp
+  version: 1
+  license: CC BY 4.0
+  url: https://universe.roboflow.com/adityasih162/ic-detection-x1zxn-t08hp/dataset/1
