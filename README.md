@@ -286,4 +286,4 @@ For issues and questions, please open a GitHub issue.
 
 ---
 
-**Made with ❤️ for accurate IC detection**
+**Made for fun with accurate IC detection**
